@@ -1,4 +1,3 @@
-import { isKindredClass } from './sheet/trait-helpers.js'
 import { CHOICE_KEYS } from './utils/choices.js'
 
 /* global foundry, game */
