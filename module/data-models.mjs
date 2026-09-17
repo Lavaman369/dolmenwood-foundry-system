@@ -1,3 +1,4 @@
+import { isKindredClass } from './sheet/trait-helpers.js'
 import { CHOICE_KEYS } from './utils/choices.js'
 
 /* global foundry, game */
@@ -451,7 +452,7 @@ export class AdventurerDataModel extends ActorDataModel {
 		const magicAdj = this.adjustments.magic
 		const arcaneCasters = ['magician', 'breggle']
 		const holyCasters = ['cleric', 'friar']
-		const fairyCasters = ['enchanter', 'grimalkin']
+		const fairyCasters = ['enchanter', 'elf', 'grimalkin']
 		const fairyKindreds = ['elf', 'grimalkin']
 
 		this.arcaneMagic.enabled = arcaneCasters.includes(classId) || magicAdj.arcane
@@ -517,6 +518,21 @@ export class AdventurerDataModel extends ActorDataModel {
 					this.holyMagic.spellSlots[key].max + (magicAdj.holySlots[key] || 0))
 			}
 		}
+
+		// Compute glamours known from class item progression table
+		const glamourTable = classItem?.system?.glamourProgression
+		if (this.fairyMagic.enabled && glamourTable?.length > 0) {
+			const level = Math.min(this.level, 15)
+
+			// Account for kindreds that start with 1 glamour known, unless it's a kindred-class
+			// Kindred-classes don't benefit from an extra glamour
+			const isKindredClass = !!classItem?.system?.requiredKindred
+			const kindredGlamour = (fairyKindreds.includes(kindredId) && !isKindredClass) ? 1 : 0
+
+			this.fairyMagic.glamoursMax = (glamourTable[level] ?? this.fairyMagic.glamoursMax) + kindredGlamour
+		}
+
+		// Apply glamour adjustments (like from Effects)
 		if (this.fairyMagic.enabled) {
 			this.fairyMagic.glamoursMax = Math.max(0,
 				this.fairyMagic.glamoursMax + (magicAdj.glamoursMax || 0))
@@ -1536,6 +1552,10 @@ export class ClassDataModel extends ItemDataModel {
 			// Spell slot progression (array of arrays: [[rank1, rank2, ...], ...])
 			spellProgression: new ArrayField(
 				new ArrayField(new NumberField({ integer: true, min: 0 })),
+				{ initial: [] }
+			),
+			// Glamours known by level (indices 1-15)
+			glamourProgression: new ArrayField(new NumberField({ integer: true, min: 0 }),
 				{ initial: [] }
 			),
 			// Skill target progressions by level (indices 0-15, where 0 is unused)

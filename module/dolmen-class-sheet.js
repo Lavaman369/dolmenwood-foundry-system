@@ -137,6 +137,7 @@ class DolmenClassSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
 
 		// Format progressions with compact arrays
 		context.spellProgressionJSON = formatCompactJSON(this.item.system.spellProgression)
+		context.glamourProgressionJSON = formatCompactJSON(this.item.system.glamourProgression)
 		context.xpThresholdsJSON = formatCompactJSON(this.item.system.xpThresholds)
 		context.attackProgressionJSON = formatCompactJSON(this.item.system.attackProgression)
 		context.saveProgressionsJSON = formatCompactJSON(this.item.system.saveProgressions)
@@ -163,7 +164,7 @@ class DolmenClassSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
 
 	_processFormData(event, form, formData) {
 		const flat = formData.object
-		const jsonFields = ['xpThresholds', 'spellProgression', 'attackProgression', 'saveProgressions', 'skillProgressions', 'traits']
+		const jsonFields = ['xpThresholds', 'spellProgression', 'glamourProgression', 'attackProgression', 'saveProgressions', 'skillProgressions', 'traits']
 		const jsonValues = extractJSON(flat, jsonFields, 'system')
 		const result = foundry.utils.expandObject(flat)
 		Object.assign(result.system, jsonValues)
