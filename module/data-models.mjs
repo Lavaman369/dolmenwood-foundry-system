@@ -454,9 +454,12 @@ export class AdventurerDataModel extends ActorDataModel {
 		const fairyCasters = ['enchanter', 'elf', 'grimalkin']
 		const fairyKindreds = ['elf', 'grimalkin']
 
-		this.arcaneMagic.enabled = arcaneCasters.includes(classId) || magicAdj.arcane
-		this.holyMagic.enabled = holyCasters.includes(classId) || magicAdj.holy
-		this.fairyMagic.enabled = fairyCasters.includes(classId) || fairyKindreds.includes(kindredId) || magicAdj.fairy
+		// Classes can also get magic enabled through their spell type (e.g. homebrew classes)
+		const classSpellType = classItem?.system?.spellType
+
+		this.arcaneMagic.enabled = arcaneCasters.includes(classId) || magicAdj.arcane || classSpellType === 'arcane'
+		this.holyMagic.enabled = holyCasters.includes(classId) || magicAdj.holy || classSpellType === 'holy'
+		this.fairyMagic.enabled = fairyCasters.includes(classId) || fairyKindreds.includes(kindredId) || magicAdj.fairy || classSpellType === 'fairy'
 		this.knacks.enabled = kindredId === 'mossling' || magicAdj.knacks
 
 		// Compute spell slot max values from class item progression table
@@ -1610,7 +1613,7 @@ export class ClassDataModel extends ItemDataModel {
 				required: true,
 				blank: false,
 				initial: "none",
-				choices: ['none', 'arcane', 'holy']
+				choices: ['none', 'arcane', 'holy', 'fairy']
 			}),
 			// Combat aptitude
 			combatAptitude: new StringField({

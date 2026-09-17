@@ -65,7 +65,8 @@
 			"SpellTypeChoices": {
 				"none": "None",
 				"arcane": "Arcane",
-				"holy": "Holy"
+				"holy": "Holy",
+				"fairy": "Fairy"
 			},
 			"CombatAptitude": "Combat Aptitude",
 			"CombatAptitudeChoices": {
