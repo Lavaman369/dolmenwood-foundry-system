@@ -94,7 +94,7 @@ class DolmenClassSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
 		context.hasCodexLink = !!this.item.system.codexUuid
 
 		// Choices
-		context.spellTypeChoices = buildChoices('DOLMEN.Class.SpellTypeChoices', ['none', 'arcane', 'holy'])
+		context.spellTypeChoices = buildChoices('DOLMEN.Class.SpellTypeChoices', ['none', 'arcane', 'holy', 'fairy'])
 		context.combatAptitudeChoices = buildChoices('DOLMEN.Class.CombatAptitudeChoices', ['martial', 'semi-martial', 'non-martial'])
 		context.abilityChoices = buildChoices('DOLMEN.Abilities', ['strength', 'intelligence', 'wisdom', 'dexterity', 'constitution', 'charisma'])
 		// Kindred choices from compendium
