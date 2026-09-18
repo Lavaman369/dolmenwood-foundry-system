@@ -138,6 +138,15 @@ Hooks.once('init', async function () {
 		default: true
 	})
 
+	game.settings.register('dolmenwood', 'autoMarkDefeated', {
+		name: 'DOLMEN.Settings.AutoMarkDefeated',
+		hint: 'DOLMEN.Settings.AutoMarkDefeated',
+		scope: 'world',
+		config: true,
+		type: Boolean,
+		default: true
+	})
+
 	game.settings.register('dolmenwood', 'encounterChance', {
 		scope: 'world',
 		config: false,
@@ -871,6 +880,24 @@ Hooks.on('createActiveEffect', (effect) => {
 	if (!actor || !(actor instanceof Actor) || actor.type !== 'Creature') return
 	if (actor.system.hp.value <= 0) return
 	recordDefeatedCreature(actor)
+})
+
+Hooks.on('updateActor', async (actor, changes) => {
+	if (game.user !== game.users.activeGM) return
+	if (!game.settings.get('dolmenwood', 'autoMarkDefeated')) return
+	if (actor.type !== 'Adventurer' && actor.type !== 'Creature') return
+	const newHP = changes?.system?.hp?.value
+	if (newHP === undefined) return
+	const shouldBeDefeated = newHP <= 0
+	if (shouldBeDefeated === actorHasDefeatedStatus(actor)) return
+	const defeatedId = CONFIG.specialStatusEffects?.DEFEATED ?? 'dead'
+	await actor.toggleStatusEffect(defeatedId, { overlay: true, active: shouldBeDefeated })
+	// Accounts for if the referee manually marks a combatant as alive
+	if (!shouldBeDefeated) {
+		for (const c of game.combat?.getCombatantsByActor(actor) ?? []) {
+			if (c.defeated) await c.update({ defeated: false })
+		}
+	}
 })
 
 // Refresh rune usage on day change (x/day, x/week, x/year)
