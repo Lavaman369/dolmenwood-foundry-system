@@ -1009,7 +1009,9 @@
 			"AutoMissileRange": "Automatic Missile Range",
 			"AutoMissileRangeHint": "Automatically determine missile attack range (Close/Medium/Long) from the distance between the attacker's token and the target, instead of asking. Requires the attacker to have a token on the scene and exactly one target; otherwise the manual range menu is shown. Attacks beyond long range are rolled at long range with an out-of-range note.",
 			"AutomatedKillLog": "Automated Kill Log",
-			"AutomatedKillLogHint": "Automatically record defeated creatures (HP drops to 0) in the kill log for XP distribution."
+			"AutomatedKillLogHint": "Automatically record defeated creatures (HP drops to 0) in the kill log for XP distribution.",
+			"AutoMarkDefeated": "Automatic Defeated at 0 HP",
+			"AutoMarkDefatedHint": "Automatically mark PCs and creatures as defeated when they reach 0 HP"
 		},
 		"Welcome": {
 			"Title": "Welcome to Dolmenwood VTT!",
