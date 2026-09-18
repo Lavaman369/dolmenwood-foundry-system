@@ -138,6 +138,7 @@
     },
     "skillProgressions": {},
     "spellProgression": [],
+    "glamourProgression": [0, 1, 2, 3, 3, 4, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10],
     "spellType": "none",
     "combatAptitude": "martial",
     "weaponsProficiency": [

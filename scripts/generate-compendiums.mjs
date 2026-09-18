@@ -132,6 +132,11 @@ const DOLMENWOOD = {
 			[5, 5, 4, 3, 3], [6, 5, 4, 4, 3], [6, 5, 5, 4, 3]
 		]
 	},
+	glamourProgression: {
+		enchanter: [0, 1, 2, 3, 3, 4, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10],
+		elf: [0, 1, 2, 3, 3, 4, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10],
+		grimalkin: [0, 1, 2, 3, 3, 4, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10]
+	},
 	xpThresholds: {
 		fighter: [0, 2000, 4000, 8000, 16000, 32000, 64000, 128000, 260000, 380000, 500000, 620000, 740000, 860000, 980000],
 		thief: [0, 1200, 2400, 4800, 9600, 19200, 38400, 76800, 150000, 270000, 390000, 510000, 630000, 750000, 870000],
@@ -1454,6 +1459,7 @@ function generateClassItems() {
 				saveProgressions: DOLMENWOOD.saveProgressions[classId] || {},
 				skillProgressions: DOLMENWOOD.skillProgressions[classId] || {},
 				spellProgression: DOLMENWOOD.spellProgression[classId] || [],
+				glamourProgression: DOLMENWOOD.glamourProgression[classId] || [],
 				spellType: ['magician'].includes(classId) ? 'arcane' : ['cleric', 'friar'].includes(classId) ? 'holy' : 'none',
 				combatAptitude: ['fighter', 'knight', 'hunter'].includes(classId) ? 'martial' : ['bard', 'cleric', 'enchanter', 'thief'].includes(classId) ? 'semi-martial' : 'non-martial',
 				weaponsProficiency: DOLMENWOOD.weaponsProficiency[classId] || [],
@@ -1499,6 +1505,7 @@ function generateClassItems() {
 				saveProgressions: DOLMENWOOD.saveProgressions[kindredClassId] || {},
 				skillProgressions: DOLMENWOOD.skillProgressions[kindredClassId] || {},
 				spellProgression: DOLMENWOOD.spellProgression[kindredClassId] || [],
+				glamourProgression: DOLMENWOOD.glamourProgression[kindredClassId] || [],
 				spellType: ['magician', 'breggle'].includes(kindredClassId) ? 'arcane' : 'none',
 				combatAptitude: ['breggle', 'elf'].includes(kindredClassId) ? 'martial' : 'semi-martial',
 				weaponsProficiency: DOLMENWOOD.weaponsProficiency[kindredClassId] || [],
